@@ -5,11 +5,10 @@ import { useEffect, useState } from "react";
 
 function Thermometer() {
   const {temperature, setTemperature} = useClimate();
-  const [desiredTemparture, setDesiredTemperature] = useState();
+  const [desiredTemparture, setDesiredTemperature] = useState(temperature);
 
   useEffect(()=>{
     let id;
-    // while (temperature !== desiredTemparture){
       if (temperature < desiredTemparture){
         id = setTimeout(()=>setTemperature(temperature + 1),1000)
       } else if (temperature > desiredTemparture){
@@ -17,8 +16,7 @@ function Thermometer() {
       } else {
         clearTimeout(id);
       }
-    // }
-  },[desiredTemparture]);
+  }, [temperature, desiredTemparture]);
 
   return (
     <section>
