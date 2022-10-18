@@ -6,6 +6,8 @@ const Store = () => {
   const inventory = initialInventory;
   const cards = initialCards;
 
+  
+
   return (
     <div>
       <h2 className="title is-2">Store Inventory</h2>
