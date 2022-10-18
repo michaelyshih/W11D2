@@ -1,17 +1,32 @@
 import ReactSlider from "react-slider";
 import './Thermometer.css';
 import { useClimate } from '../../context/ClimateContext';
+import { useEffect, useState } from "react";
 
 function Thermometer() {
   const {temperature, setTemperature} = useClimate();
+  const [desiredTemparture, setDesiredTemperature] = useState();
+
+  useEffect(()=>{
+    let id;
+    // while (temperature !== desiredTemparture){
+      if (temperature < desiredTemparture){
+        id = setTimeout(()=>setTemperature(temperature + 1),1000)
+      } else if (temperature > desiredTemparture){
+        id = setTimeout(()=>setTemperature(temperature - 1),1000)
+      } else {
+        clearTimeout(id);
+      }
+    // }
+  },[desiredTemparture]);
 
   return (
     <section>
       <h2>Thermometer</h2>
       <div className="actual-temp">Actual Temperature: {temperature}°F</div>
       <ReactSlider
-        value={temperature}
-        onAfterChange={(val) => setTemperature(val)}
+        value={desiredTemparture}
+        onAfterChange={(val) => setDesiredTemperature(val)}
         className="thermometer-slider"
         thumbClassName="thermometer-thumb"
         trackClassName="thermometer-track"
